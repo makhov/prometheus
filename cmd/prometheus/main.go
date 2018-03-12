@@ -492,7 +492,6 @@ func main() {
 				}
 
 				reloadReady.Close()
-				time.Sleep(6 * time.Minute)
 				webHandler.Ready()
 				level.Info(logger).Log("msg", "Server is ready to receive web requests.")
 				<-cancel
