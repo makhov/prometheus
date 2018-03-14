@@ -40,8 +40,15 @@ func NewBytesPool(minSize, maxSize int, factor float64) *BytesPool {
 		sizes = append(sizes, s)
 	}
 
+	bucks := make([]sync.Pool, len(sizes))
+	for i, _ := range sizes {
+		bucks[i] = sync.Pool {
+			New:  func() interface{} { return []byte{} },
+		}
+	}
+
 	p := &BytesPool{
-		buckets: make([]sync.Pool, len(sizes)),
+		buckets: bucks,
 		sizes:   sizes,
 	}
 
